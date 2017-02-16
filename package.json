@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node node_modules/browser-sync/bin/browser-sync.js start --server --files \"*\""
+    "dev": "node node_modules/browser-sync/bin/browser-sync.js start --server --files \"**\""
   },
   "author": "Sam",
   "license": "ISC",

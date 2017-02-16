@@ -45,30 +45,38 @@ if (canvas.getContext){
     title: 'Number of subscribers'
   };
   var yStartCoordinate = valueAxisDrow(ctx, chartPanel, valueAxis, sampleData);
+
+  var seriesGroups = {
+    series: [{'dataField': 'iPhone3'}, {'dataField': 'Nokia N9'}]
+  }
+
+  var points = getPoints(ctx, chartPanel, sampleData, seriesGroups, xCoordinates, yStartCoordinate, valueAxis);
+  for (var i in points) {
+    drawPoints(ctx, points[i]);
+    drawLines(ctx, points[i]);
+  }
+
 }
 
 // 绘制折线
-function linesDrow(ctx, chartPanel, data, seriesGroups, xCoordinates, yStartCoordinate, valueAxis){
+function getPoints(ctx, chartPanel, data, seriesGroups, xCoordinates, yStartCoordinate, valueAxis){
   var height = chartPanel.height;
   var minValue = valueAxis.minValue;
   var maxValue = valueAxis.maxValue;
+  var dataPoints = [];
 
   for (var i=0;i<seriesGroups.series.length;i++) {
     var dataField = seriesGroups.series[i].dataField;
-    ctx.beginPath();
+    var points = [];
     for (var j=0;j<data.length;j++){
       var value = data[j][dataField];
       var yCoordinate = yStartCoordinate + (height-24)*(value-minValue)/(maxValue-minValue);
-      if (0===j) {
-        ctx.moveTo(xCoordinates[j], yCoordinate);
-      }
-      else {
-        ctx.lineTo(xCoordinates[j], yCoordinate);
-      }
+      var point = [xCoordinates[j], yCoordinate];
+      points.push(point);
     }
-    
+    dataPoints.push(points);
   }
-
+  return dataPoints;
 }
 
 // 绘制y轴
@@ -185,4 +193,37 @@ function textDrow(ctx, text, x, y, setting) {
   
   ctx.fillText(text,0,0);
   ctx.restore();
+}
+
+/**
+ * draw points in specified position
+ * @Author   Sam
+ * @DateTime 2017-02-16
+ * @param    {Object}  ctx    画笔
+ * @param    {Array}   points 坐标信息，如[[x,y]...]
+ * @return   none
+ */
+function drawPoints(ctx, points){
+  ctx.beginPath();
+  for (var i in points) {
+    ctx.arc(points[i][0], points[i][1], 2, 0, 2*Math.PI);
+  }
+  ctx.stroke();
+}
+
+/**
+ * draw lines
+ * @Author   Sam
+ * @DateTime 2017-02-16
+ * @param    {Object}   ctx    画笔
+ * @param    {Array}    points 坐标信息，如[[x,y]...]
+ * @return   none
+ */
+function drawLines(ctx, points){
+  ctx.beginPath();
+  ctx.moveTo(points[0][0], points[0][1]);
+  for (var i=1;i<points.length;i++) {
+    ctx.lineTo(points[i][0], points[i][1]);
+  }
+  ctx.stroke();
 }
