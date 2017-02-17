@@ -70,7 +70,7 @@ function getPoints(ctx, chartPanel, data, seriesGroups, xCoordinates, yStartCoor
     var points = [];
     for (var j=0;j<data.length;j++){
       var value = data[j][dataField];
-      var yCoordinate = yStartCoordinate + (height-24)*(value-minValue)/(maxValue-minValue);
+      var yCoordinate = yStartCoordinate - (height-24)*(value-minValue)/(maxValue-minValue);
       var point = [xCoordinates[j], yCoordinate];
       points.push(point);
     }
