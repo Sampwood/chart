@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --reporter spec",
     "dev": "node node_modules/browser-sync/bin/browser-sync.js start --server --files \"**\""
   },
   "author": "Sam",
@@ -12,6 +12,8 @@
   "devDependencies": {
     "bower": "^1.7.9",
     "browser-sync": "^2.17.5",
-    "chart.js": "^2.3.0"
+    "chai": "^3.5.0",
+    "chart.js": "^2.3.0",
+    "mocha": "^3.2.0"
   }
 }
