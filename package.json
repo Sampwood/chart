@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha-phantomjs test/index.html",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec test/*.js",
+    "cover": "istanbul cover --report lcov node_modules/mocha/bin/_mocha -- -R spec test/*.js",
     "dev": "node node_modules/browser-sync/bin/browser-sync.js start --server --files \"**\""
   },
   "author": "Sam",
